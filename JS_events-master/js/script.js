@@ -69,7 +69,7 @@ function toggleCardView() {
 }
 function toggleCard(cardElt) {
     let btnElt = cardElt.querySelector('.btn-success');
-    btnElt.addEventListener('click', e => {
+    btnElt.addEventListener('mouseover', e => {
         e.preventDefault();
         console.log(e.currentTarget);
         cardElt.querySelector('.card-text').classList.toggle('collapse');
@@ -124,34 +124,38 @@ function keyOnModifyColumns() {
     let defaultCardClass = 'col-md-4';
     let newCardClass = 'col-md-3';
     document.addEventListener("keydown", e => {
-        switch (e.key) {
-            case 'y':
-                listElt.classList.add('justify-content-center');
-                listElt.classList.remove('justify-content-end');
-                break;
-            case 'p':
-                listElt.classList.className = '';
-                listElt.classList.remove('justify-content-center');
-                listElt.classList.add('justify-content-end');
-                break;
-            case 'a':
-            case 'b':
-                listElt.classList.remove('justify-content-center');
-                listElt.classList.remove('justify-content-end');
-                break;
-        }
-        for (let i = 0; i < cardElt.length; i++) {
-            cardElt[i].className = '';
+        let logoText = btnElt.textContent;
+        let selectedText = window.getSelection().focusNode.textContent;
+        if (logoText === selectedText) {
             switch (e.key) {
-                case 'a':
                 case 'y':
+                    listElt.classList.add('justify-content-center');
+                    listElt.classList.remove('justify-content-end');
+                    break;
                 case 'p':
-                    cardElt[i].classList.add(newCardClass);
+                    listElt.classList.className = '';
+                    listElt.classList.remove('justify-content-center');
+                    listElt.classList.add('justify-content-end');
                     break;
+                case 'a':
                 case 'b':
-                    cardElt[i].className = '';
-                    cardElt[i].classList.add(defaultCardClass);
+                    listElt.classList.remove('justify-content-center');
+                    listElt.classList.remove('justify-content-end');
                     break;
+            }
+            for (let i = 0; i < cardElt.length; i++) {
+                cardElt[i].className = '';
+                switch (e.key) {
+                    case 'a':
+                    case 'y':
+                    case 'p':
+                        cardElt[i].classList.add(newCardClass);
+                        break;
+                    case 'b':
+                        cardElt[i].className = '';
+                        cardElt[i].classList.add(defaultCardClass);
+                        break;
+                }
             }
         }
     });
