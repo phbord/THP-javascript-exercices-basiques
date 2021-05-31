@@ -121,14 +121,17 @@ function keyOnModifyColumns() {
     let listElt = document.querySelector('.album .row');
     let cardElt = listElt.querySelectorAll('.col-md-4');
     document.addEventListener("keydown", e => {
-        let logoText = btnElt.textContent;
-        let selectedText = window.getSelection().focusNode.textContent;
-        if (logoText !== selectedText) {
-            return false;
-        }
+        if (_isLogoTextSelected(btnElt) == false) return false;
         _keydownList(e, listElt);
         _keydownCards(e, cardElt);
     });
+}
+function _isLogoTextSelected(btnElt) {
+    let logoText = btnElt.textContent;
+    let selectedText = window.getSelection().focusNode.textContent;
+    if (logoText !== selectedText) {
+        return false;
+    }
 }
 function _keydownList(event, listElt) {
     switch (event.key) {
